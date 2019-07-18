@@ -28,11 +28,13 @@ public class GenericEventBehaviour : MonoBehaviour
             if(currentEventType == 0)
             {
                 // logic specific for an encounter event
+                Debug.Log("OnTriggerEnter: Encounter");
             }
 
             else if(currentEventType == 1)
             {
-                // logic specific for an encounter event
+                // logic specific for an item event
+                Debug.Log("OnTriggerEnter: Item");
             }
         }
     }
@@ -49,11 +51,13 @@ public class GenericEventBehaviour : MonoBehaviour
             if (currentEventType == 0)
             {
                 // logic specific for an encounter event
+                Debug.Log("OnTriggerExit: Encounter");
             }
 
             else if (currentEventType == 1)
             {
-                // logic specific for an encounter event
+                // logic specific for an item event
+                Debug.Log("OnTriggerExit: Item");
             }
         }
     }
