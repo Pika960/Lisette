@@ -31,21 +31,52 @@ public class PlayerInputController : MonoBehaviour
     // get user input from keyboard or controller
     private void GetPlayerInput()
     {
-        if (Input.GetAxis("Horizontal") != 0f)
+        if(Input.GetAxis("Keyboard Horizontal") != 0f)
         {
-            player.MovePlayer(0, 0, (int)(Input.GetAxisRaw("Horizontal")));
+            MovePlayer((int)(Input.GetAxisRaw("Keyboard Horizontal")), 0);
         }
 
-        if(Input.GetAxis("Vertical") != 0f)
+        if(Input.GetAxis("LeftStick Horizontal") != 0f)
         {
-            int vertical = (int)(Input.GetAxisRaw("Vertical"));
+            MovePlayer((int)(Input.GetAxisRaw("LeftStick Horizontal")), 0);
+        }
 
-            if(vertical > 0f)
+        if(Input.GetAxis("Keyboard Vertical") != 0f)
+        {
+            MovePlayer((int)(Input.GetAxisRaw("Keyboard Vertical")), 1);
+        }
+
+        if(Input.GetAxis("LeftStick Vertical") != 0f)
+        {
+            MovePlayer((int)(Input.GetAxisRaw("LeftStick Vertical")), 1);
+        }
+
+        if(Input.GetKey(KeyCode.E) || Input.GetButton("FaceButton A"))
+        {
+            player.InteractWithObject();
+        }
+
+        if(Input.GetKey(KeyCode.Escape) || Input.GetButton("MenuButton Start"))
+        {
+            Application.Quit();
+        }
+    }
+
+    private void MovePlayer(int orientation, ushort axis)
+    {
+        if(axis == 0)
+        {
+            player.MovePlayer(0, 0, orientation);
+        }
+
+        if(axis == 1)
+        {
+            if(orientation > 0)
             {
-                player.MovePlayer(0, vertical, 0);
+                player.MovePlayer(0, orientation, 0);
             }
 
-            else if(vertical < 0f)
+            else if(orientation < 0)
             {
                 if(is180SpinAllowed)
                 {
@@ -53,16 +84,6 @@ public class PlayerInputController : MonoBehaviour
                     StartCoroutine(Disable180Spin());
                 }
             }
-        }
-
-        if(Input.GetKey(KeyCode.E))
-        {
-            player.InteractWithObject();
-        }
-
-        if(Input.GetKey(KeyCode.Escape))
-        {
-            Application.Quit();
         }
     }
 
