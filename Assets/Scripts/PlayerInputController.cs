@@ -41,6 +41,11 @@ public class PlayerInputController : MonoBehaviour
             MovePlayer((int)(Input.GetAxisRaw("LeftStick Horizontal")), 0);
         }
 
+        if(Input.GetAxis("DPAD Horizontal") != 0f)
+        {
+            MovePlayer((int)(Input.GetAxisRaw("DPAD Horizontal")), 0);
+        }
+
         if(Input.GetAxis("Keyboard Vertical") != 0f)
         {
             MovePlayer((int)(Input.GetAxisRaw("Keyboard Vertical")), 1);
@@ -49,6 +54,31 @@ public class PlayerInputController : MonoBehaviour
         if(Input.GetAxis("LeftStick Vertical") != 0f)
         {
             MovePlayer((int)(Input.GetAxisRaw("LeftStick Vertical")), 1);
+        }
+
+        if(Input.GetAxis("DPAD Vertical") != 0f)
+        {
+            MovePlayer((int)(Input.GetAxisRaw("DPAD Vertical")), 1);
+        }
+
+        if(Input.GetButton("DPAD Up"))
+        {
+            MovePlayer(1, 1);
+        }
+
+        if(Input.GetButton("DPAD Down"))
+        {
+            MovePlayer(-1, 1);
+        }
+
+        if(Input.GetButton("DPAD Left"))
+        {
+            MovePlayer(-1, 0);
+        }
+
+        if(Input.GetButton("DPAD Right"))
+        {
+            MovePlayer(1, 0);
         }
 
         if(Input.GetKey(KeyCode.E) || Input.GetButton("FaceButton A"))
