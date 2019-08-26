@@ -1,0 +1,6 @@
+Lisette|Hello, I'm Lisette. And who are you?
+Pachipachi|Pachi?
+Lisette|Do you unterstand what I'm saying?
+Pachipachi|Pachi?
+Lisette|Hmm, I should go further...
+Pachipachi|Don't go. I'm just joking. Pachipachi is my name. Nice to meet you.
