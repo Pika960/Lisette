@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GenericEventBehaviour : MonoBehaviour
 {
     // private internal values
+    private bool   isAlreadyTriggered;
+    private string objectName;
+    private string sceneName;
     private ushort currentEventType;
 
     // public values
@@ -11,17 +15,21 @@ public class GenericEventBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (gameObject.name.Contains("DialogEvent"))
+        objectName = gameObject.name;
+        sceneName  = SceneManager.GetActiveScene().name;
+        isAlreadyTriggered = GameState.checkIfTriggered(sceneName, objectName);
+
+        if (objectName.Contains("DialogEvent"))
         {
             currentEventType = 0;
         }
 
-        else if (gameObject.name.Contains("EncounterEvent"))
+        else if (objectName.Contains("EncounterEvent"))
         {
             currentEventType = 1;
         }
 
-        else if (gameObject.name.Contains("ItemEvent"))
+        else if (objectName.Contains("ItemEvent"))
         {
             currentEventType = 2;
         }
@@ -29,28 +37,38 @@ public class GenericEventBehaviour : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (!isAlreadyTriggered)
         {
-            if (currentEventType == 0)
+            if (other.gameObject.CompareTag("Player"))
             {
-                // logic specific for a dialog event
-                Debug.Log("OnTriggerEnter: Dialog");
+                isAlreadyTriggered = GameState.checkIfTriggered(sceneName, objectName);
 
-                GameState.DialogResource = dialogResource;
-                FindObjectOfType<DialogManager>().StartDialog();
-            }
+                if (currentEventType == 0)
+                {
+                    // logic specific for a dialog event
+                    Debug.Log("OnTriggerEnter: Dialog");
 
-            else if (currentEventType == 1)
-            {
-                // logic specific for an encounter event
-                Debug.Log("OnTriggerEnter: Encounter");
-            }
+                    GameState.DialogResource = dialogResource;
+                    FindObjectOfType<DialogManager>().StartDialog();
+                }
 
-            else if (currentEventType == 2)
-            {
-                // logic specific for an item event
-                Debug.Log("OnTriggerEnter: Item");
+                else if (currentEventType == 1)
+                {
+                    // logic specific for an encounter event
+                    Debug.Log("OnTriggerEnter: Encounter");
+                }
+
+                else if (currentEventType == 2)
+                {
+                    // logic specific for an item event
+                    Debug.Log("OnTriggerEnter: Item");
+                }
             }
+        }
+
+        else
+        {
+            Debug.Log("OnTriggerEnter: Already triggered");
         }
     }
 
@@ -61,24 +79,27 @@ public class GenericEventBehaviour : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (!isAlreadyTriggered)
         {
-            if (currentEventType == 0)
+            if (other.gameObject.CompareTag("Player"))
             {
-                // logic specic for a dialog event
-                Debug.Log("OnTriggerExit: Dialog");
-            }
+                if (currentEventType == 0)
+                {
+                    // logic specic for a dialog event
+                    Debug.Log("OnTriggerExit: Dialog");
+                }
 
-            if (currentEventType == 1)
-            {
-                // logic specific for an encounter event
-                Debug.Log("OnTriggerExit: Encounter");
-            }
+                if (currentEventType == 1)
+                {
+                    // logic specific for an encounter event
+                    Debug.Log("OnTriggerExit: Encounter");
+                }
 
-            else if (currentEventType == 2)
-            {
-                // logic specific for an item event
-                Debug.Log("OnTriggerExit: Item");
+                else if (currentEventType == 2)
+                {
+                    // logic specific for an item event
+                    Debug.Log("OnTriggerExit: Item");
+                }
             }
         }
     }
