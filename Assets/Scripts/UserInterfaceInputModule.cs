@@ -37,13 +37,13 @@ public class UserInterfaceInputModule : PointerInputModule
     private string m_HorizontalAxisKeyboard = "Keyboard Horizontal";
 
     [SerializeField]
-    private string m_HorizontalAxisJoystick = "Leftstick Horizontal";
+    private string m_HorizontalAxisJoystick = "LeftStick Horizontal";
 
     [SerializeField]
     private string m_VerticalAxisKeyboard = "Keyboard Vertical";
 
     [SerializeField]
-    private string m_VerticalAxisJoystick = "Leftstick Vertical";
+    private string m_VerticalAxisJoystick = "LeftStick Vertical";
 
     [SerializeField]
     private string m_SubmitButtonKeyboard = "Submit";
