@@ -41,6 +41,11 @@ public class PlayerInputController : MonoBehaviour
             MovePlayer((int)(Input.GetAxisRaw("LeftStick Horizontal")), 0);
         }
 
+        if(Input.GetAxis("RightStick Horizontal") != 0f)
+        {
+            MovePlayer((int)(Input.GetAxisRaw("RightStick Horizontal")), 0);
+        }
+
         if(Input.GetAxis("DPAD Horizontal") != 0f)
         {
             MovePlayer((int)(Input.GetAxisRaw("DPAD Horizontal")), 0);
