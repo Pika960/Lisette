@@ -17,7 +17,6 @@ public class GenericEventBehaviour : MonoBehaviour
     {
         objectName = gameObject.name;
         sceneName  = SceneManager.GetActiveScene().name;
-        isAlreadyTriggered = GameState.checkIfTriggered(sceneName, objectName);
 
         if (objectName.Contains("DialogEvent"))
         {
@@ -37,12 +36,12 @@ public class GenericEventBehaviour : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!isAlreadyTriggered)
+        if (other.gameObject.CompareTag("Player"))
         {
-            if (other.gameObject.CompareTag("Player"))
-            {
-                isAlreadyTriggered = GameState.checkIfTriggered(sceneName, objectName);
+            isAlreadyTriggered = GameState.checkIfTriggered(sceneName, objectName);
 
+            if (!isAlreadyTriggered)
+            {
                 if (currentEventType == 0)
                 {
                     // logic specific for a dialog event
@@ -62,11 +61,11 @@ public class GenericEventBehaviour : MonoBehaviour
                     Debug.Log("OnTriggerEnter: Item");
                 }
             }
-        }
 
-        else
-        {
-            Debug.Log("OnTriggerEnter: Already triggered");
+            else
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 
@@ -77,9 +76,9 @@ public class GenericEventBehaviour : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (!isAlreadyTriggered)
+        if (other.gameObject.CompareTag("Player"))
         {
-            if (other.gameObject.CompareTag("Player"))
+            if (!isAlreadyTriggered)
             {
                 if (currentEventType == 0)
                 {
