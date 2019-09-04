@@ -6,19 +6,12 @@ public static class GameState
     private static Dictionary<string, Vector3> m_playerPositions;
     private static Dictionary<string, Quaternion> m_playerRotations;
     private static Dictionary<string, Dictionary<string, bool>> m_triggeredEvents;
-    private static TextAsset m_dialogResource;
 
     static GameState()
     {
         m_playerPositions = new Dictionary<string, Vector3>();
         m_playerRotations = new Dictionary<string, Quaternion>();
         m_triggeredEvents = new Dictionary<string, Dictionary<string, bool>>();
-    }
-
-    public static TextAsset DialogResource
-    {
-        get { return m_dialogResource; }
-        set { m_dialogResource = value; }
     }
 
     public static Vector3 GetPlayerPosition(string sceneName)

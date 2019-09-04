@@ -47,9 +47,7 @@ public class GenericEventBehaviour : MonoBehaviour
                 {
                     // logic specific for a dialog event
                     Debug.Log("OnTriggerEnter: Dialog");
-
-                    GameState.DialogResource = dialogResource;
-                    FindObjectOfType<DialogManager>().StartDialog();
+                    FindObjectOfType<DialogManager>().StartDialog(dialogResource);
                 }
 
                 else if (currentEventType == 1)

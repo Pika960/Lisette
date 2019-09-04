@@ -40,11 +40,11 @@ public class DialogManager : MonoBehaviour
         }
     }
 
-    public void StartDialog()
+    public void StartDialog(TextAsset dialogResource)
     {
         dialogNames.Clear();
         dialogSentences.Clear();
-        textFile = GameState.DialogResource;
+        textFile = dialogResource;
 
         if (textFile != null)
         {
