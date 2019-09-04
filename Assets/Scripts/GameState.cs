@@ -3,12 +3,15 @@ using UnityEngine;
 
 public static class GameState
 {
+    private static Dictionary<string, Vector3> m_playerPositions;
+    private static Dictionary<string, Quaternion> m_playerRotations;
     private static Dictionary<string, Dictionary<string, bool>> m_triggeredEvents;
     private static TextAsset m_dialogResource;
-    private static Vector3 m_playerPosition;
 
     static GameState()
     {
+        m_playerPositions = new Dictionary<string, Vector3>();
+        m_playerRotations = new Dictionary<string, Quaternion>();
         m_triggeredEvents = new Dictionary<string, Dictionary<string, bool>>();
     }
 
@@ -18,10 +21,50 @@ public static class GameState
         set { m_dialogResource = value; }
     }
 
-    public static Vector3 PlayerPosition
+    public static Vector3 GetPlayerPosition(string sceneName)
     {
-        get { return m_playerPosition; }
-        set { m_playerPosition = value; }
+        if (m_playerPositions.ContainsKey(sceneName))
+        {
+            return m_playerPositions[sceneName];
+        }
+
+        return Vector3.zero;
+    }
+
+    public static void SetPlayerPosition(string sceneName, Vector3 value)
+    {
+        if (m_playerPositions.ContainsKey(sceneName))
+        {
+            m_playerPositions[sceneName] = value;
+        }
+
+        else
+        {
+            m_playerPositions.Add(sceneName, value);
+        }
+    }
+
+    public static Quaternion GetPlayerRotation(string sceneName)
+    {
+        if (m_playerRotations.ContainsKey(sceneName))
+        {
+            return m_playerRotations[sceneName];
+        }
+
+        return Quaternion.Euler(Vector3.up * 180);
+    }
+
+    public static void SetPlayerRotation(string sceneName, Quaternion value)
+    {
+        if (m_playerRotations.ContainsKey(sceneName))
+        {
+            m_playerRotations[sceneName] = value;
+        }
+
+        else
+        {
+            m_playerRotations.Add(sceneName, value);
+        }
     }
 
     public static bool checkIfTriggered(string sceneName, string eventName)

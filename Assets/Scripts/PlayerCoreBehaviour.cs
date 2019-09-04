@@ -6,6 +6,9 @@ public class PlayerCoreBehaviour : PlayerMovementBehaviour
     protected override void Awake()
     {
         base.Awake();
+
+        gameObject.transform.position = GameState.GetPlayerPosition(sceneName);
+        gameObject.transform.rotation = GameState.GetPlayerRotation(sceneName);
     }
 
     public void MovePlayer(int horizontal, int vertical, int rotation)

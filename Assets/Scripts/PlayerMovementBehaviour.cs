@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovementBehaviour : MonoBehaviour
 {
@@ -14,12 +15,16 @@ public class PlayerMovementBehaviour : MonoBehaviour
     private float     invMoveTime;
     private LayerMask layer;
 
+    // protected internal values
+    protected string sceneName;
+
     // Awake is called before any Start method
     protected virtual void Awake()
     {
         canMove     = false;
         isMoving    = false;
         invMoveTime = 1f / moveTime;
+        sceneName   = SceneManager.GetActiveScene().name;
         layer       = 1 << LayerMask.NameToLayer("Default");
     }
 
@@ -100,6 +105,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
             yield return null;
         }
 
+        GameState.SetPlayerPosition(sceneName, gameObject.transform.position);
         isMoving = false;
     }
 
@@ -122,6 +128,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
             yield return null;
         }
 
+        GameState.SetPlayerRotation(sceneName, gameObject.transform.rotation);
         isMoving = false;
     }
 
