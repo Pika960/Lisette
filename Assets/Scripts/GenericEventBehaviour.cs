@@ -53,12 +53,16 @@ public class GenericEventBehaviour : MonoBehaviour
                 {
                     // logic specific for an encounter event
                     Debug.Log("OnTriggerEnter: Encounter");
+                    string placeholderMessage = "Oh no, a wild monster appears.";
+                    FindObjectOfType<NotificationManager>().StartNotification(placeholderMessage);
                 }
 
                 else if (currentEventType == 2)
                 {
                     // logic specific for an item event
                     Debug.Log("OnTriggerEnter: Item");
+                    string placeholderMessage = "Yummy, I found an apple.";
+                    FindObjectOfType<NotificationManager>().StartNotification(placeholderMessage);
                 }
             }
 
