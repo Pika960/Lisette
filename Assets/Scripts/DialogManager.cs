@@ -1,27 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class DialogManager : MonoBehaviour
 {
     private Queue<string> dialogSentences;
     private Queue<string> dialogNames;
-    
-    private GameObject canvas;
-    private GameObject dialogWindow;
-    private GameObject player;
-    private Text       dialogName;
-    private Text       dialogText;
-    private TextAsset  textFile;
+
+    private EventSystem eventSystem;
+    private GameObject  canvas;
+    private GameObject  dialogButton;
+    private GameObject  dialogWindow;
+    private GameObject  player;
+    private Text        dialogName;
+    private Text        dialogText;
+    private TextAsset   textFile;
 
     // Start is called before the first frame update
     void Start()
     {
         canvas       = GameObject.Find("/Canvas");
         dialogWindow = canvas.transform.Find("DialogWindow").gameObject;
+        dialogButton = dialogWindow.transform.Find("NextLine").gameObject;
         dialogName   = dialogWindow.transform.Find("DialogName").gameObject.GetComponent<Text>();
         dialogText   = dialogWindow.transform.Find("DialogText").gameObject.GetComponent<Text>();
+        eventSystem  = EventSystem.current;
         player       = GameObject.Find("/Player");
 
         dialogNames     = new Queue<string>();
@@ -33,7 +38,7 @@ public class DialogManager : MonoBehaviour
     {
         if (dialogWindow.activeSelf == true)
         {
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("FaceButton A"))
+            if (Input.GetButtonDown("Submit") || Input.GetButtonDown("FaceButton A"))
             {
                 DisplayNextSentence();
             }
@@ -42,6 +47,7 @@ public class DialogManager : MonoBehaviour
 
     public void StartDialog(TextAsset dialogResource)
     {
+        eventSystem.SetSelectedGameObject(dialogButton);
         dialogNames.Clear();
         dialogSentences.Clear();
         textFile = dialogResource;

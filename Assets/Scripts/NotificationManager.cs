@@ -1,19 +1,24 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class NotificationManager : MonoBehaviour
 {
-    private GameObject canvas;
-    private GameObject notificationWindow;
-    private GameObject player;
-    private Text       notificationText;
+    private EventSystem eventSystem;
+    private GameObject  canvas;
+    private GameObject  notificationButton;
+    private GameObject  notificationWindow;
+    private GameObject  player;
+    private Text        notificationText;
 
     // Start is called before the first frame update
     void Start()
     {
         canvas             = GameObject.Find("/Canvas");
+        eventSystem        = EventSystem.current;
         notificationWindow = canvas.transform.Find("NotificationWindow").gameObject;
+        notificationButton = notificationWindow.transform.Find("CloseWindow").gameObject;
         notificationText   = notificationWindow.transform.Find("NotificationText").gameObject.GetComponent<Text>();
         player             = GameObject.Find("/Player");
     }
@@ -23,7 +28,7 @@ public class NotificationManager : MonoBehaviour
     {
         if (notificationWindow.activeSelf == true)
         {
-            if (Input.GetKeyDown(KeyCode.E) || Input.GetButtonDown("FaceButton A"))
+            if (Input.GetButtonDown("Submit") || Input.GetButtonDown("FaceButton A"))
             {
                 CloseNotificationWindow();
             }
@@ -38,6 +43,7 @@ public class NotificationManager : MonoBehaviour
 
     public void StartNotification(string message)
     {
+        eventSystem.SetSelectedGameObject(notificationButton);
         notificationWindow.gameObject.SetActive(true);
         player.gameObject.GetComponent<PlayerInputController>().enabled = false;
 
