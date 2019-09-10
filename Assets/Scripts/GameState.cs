@@ -67,7 +67,7 @@ public static class GameState
         }
     }
 
-    public static bool checkIfTriggered(string sceneName, string eventName)
+    public static bool CheckIfTriggered(string sceneName, string eventName)
     {
         if (m_triggeredEvents.ContainsKey(sceneName))
         {

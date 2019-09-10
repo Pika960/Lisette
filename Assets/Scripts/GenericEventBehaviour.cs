@@ -38,7 +38,7 @@ public class GenericEventBehaviour : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            isAlreadyTriggered = GameState.checkIfTriggered(sceneName, objectName);
+            isAlreadyTriggered = GameState.CheckIfTriggered(sceneName, objectName);
 
             if (!isAlreadyTriggered)
             {
