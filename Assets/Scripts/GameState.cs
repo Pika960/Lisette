@@ -3,15 +3,22 @@ using UnityEngine;
 
 public static class GameState
 {
-    private static Dictionary<string, Vector3> m_playerPositions;
-    private static Dictionary<string, Quaternion> m_playerRotations;
+    private static Dictionary<string, int>                      m_playerInventory;
+    private static Dictionary<string, Vector3>                  m_playerPositions;
+    private static Dictionary<string, Quaternion>               m_playerRotations;
     private static Dictionary<string, Dictionary<string, bool>> m_triggeredEvents;
 
     static GameState()
     {
+        m_playerInventory = new Dictionary<string, int>();
         m_playerPositions = new Dictionary<string, Vector3>();
         m_playerRotations = new Dictionary<string, Quaternion>();
         m_triggeredEvents = new Dictionary<string, Dictionary<string, bool>>();
+    }
+
+    public static Dictionary<string, int> GetInventory()
+    {
+        return m_playerInventory;
     }
 
     public static Vector3 GetPlayerPosition(string sceneName)
@@ -86,6 +93,43 @@ public static class GameState
             m_triggeredEvents.Add(sceneName, newDictionary);
 
             return false;
+        }
+    }
+
+    public static bool ManageInventory(string item, int amount)
+    {
+        if (m_playerInventory.ContainsKey(item))
+        {
+            if ((m_playerInventory[item] += amount) > 0)
+            {
+                m_playerInventory[item] += amount;
+                return true;
+            }
+
+            else if ((m_playerInventory[item] += amount) == 0)
+            {
+                m_playerInventory.Remove(item);
+                return true;
+            }
+
+            else
+            {
+                return false;
+            }
+        }
+
+        else
+        {
+            if (amount > 0)
+            {
+                m_playerInventory.Add(item, amount);
+                return true;
+            }
+
+            else
+            {
+                return false;
+            }
         }
     }
 }

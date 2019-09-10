@@ -46,6 +46,7 @@ public class GenericEventBehaviour : MonoBehaviour
                 {
                     // logic specific for a dialog event
                     Debug.Log("OnTriggerEnter: Dialog");
+
                     FindObjectOfType<DialogManager>().StartDialog(dialogResource);
                 }
 
@@ -53,6 +54,7 @@ public class GenericEventBehaviour : MonoBehaviour
                 {
                     // logic specific for an encounter event
                     Debug.Log("OnTriggerEnter: Encounter");
+
                     string placeholderMessage = "Oh no, a wild monster appears.";
                     FindObjectOfType<NotificationManager>().StartNotification(placeholderMessage);
                 }
@@ -61,6 +63,8 @@ public class GenericEventBehaviour : MonoBehaviour
                 {
                     // logic specific for an item event
                     Debug.Log("OnTriggerEnter: Item");
+
+                    GameState.ManageInventory("Apple", 1);
                     string placeholderMessage = "Yummy, I found an apple.";
                     FindObjectOfType<NotificationManager>().StartNotification(placeholderMessage);
                 }
