@@ -95,12 +95,12 @@ public class PlayerInputController : MonoBehaviour
             player.InteractWithObject();
         }
 
-        if(Input.GetKeyDown(KeyCode.I))
+        if(Input.GetKeyDown(KeyCode.I) || Input.GetButtonDown("FaceButton Y"))
         {
             FindObjectOfType<InventoryManager>().OpenInventory();
         }
 
-        if (Input.GetKeyDown(KeyCode.M) || Input.GetButtonDown("FaceButton Y"))
+        if (Input.GetKeyDown(KeyCode.M) || Input.GetButtonDown("ViewButton Select"))
         {
             miniMap.gameObject.SetActive(!miniMap.gameObject.activeSelf);
         }

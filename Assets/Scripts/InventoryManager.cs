@@ -35,7 +35,7 @@ public class InventoryManager : MonoBehaviour
         if (inventoryWindow.activeSelf == true)
         {
             if (Input.GetButtonDown("Submit") || Input.GetKeyDown(KeyCode.I) || 
-                Input.GetButtonDown("FaceButton A"))
+                Input.GetButtonDown("FaceButton A") || Input.GetButtonDown("FaceButton Y"))
             {
                 CloseInventoryWindow();
             }
