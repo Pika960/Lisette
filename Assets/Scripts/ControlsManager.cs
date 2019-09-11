@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class MainMenuManager : MonoBehaviour
+public class ControlsManager : MonoBehaviour
 {
     private EventSystem eventSystem;
     private GameObject  canvas;
@@ -12,7 +12,7 @@ public class MainMenuManager : MonoBehaviour
     void Start()
     {
         eventSystem = EventSystem.current;
-        canvas = GameObject.Find("/Canvas");
+        canvas      = GameObject.Find("/Canvas");
     }
 
     // Update is called once per frame
@@ -29,7 +29,7 @@ public class MainMenuManager : MonoBehaviour
         {
             if (eventSystem.currentSelectedGameObject == null)
             {
-                eventSystem.SetSelectedGameObject(canvas.transform.Find("NewGame").gameObject);
+                eventSystem.SetSelectedGameObject(canvas.transform.Find("BackToMenu").gameObject);
             }
         }
 
@@ -38,42 +38,14 @@ public class MainMenuManager : MonoBehaviour
         {
             if (eventSystem.currentSelectedGameObject == null)
             {
-                eventSystem.SetSelectedGameObject(canvas.transform.Find("NewGame").gameObject);
+                eventSystem.SetSelectedGameObject(canvas.transform.Find("BackToMenu").gameObject);
             }
         }
     }
 
-    public void StartNewGame()
+    public void BackToMainMenu()
     {
         // load the demo stage
-        SceneManager.LoadScene("SampleScene");
-    }
-
-    public void ContinueGame()
-    {
-        // nothing to do here at the moment
-    }
-
-    public void DisplayOptions()
-    {
-        // options scene does not exist at the moment
-    }
-
-    public void DisplayControls()
-    {
-        // load the controls scene
-        SceneManager.LoadScene("Controls");
-    }
-
-    public void DisplayCredits()
-    {
-        // load the credits scene
-        SceneManager.LoadScene("Credits");
-    }
-
-    public void QuitGame()
-    {
-        // close the game
-        Application.Quit();
+        SceneManager.LoadScene("MainMenu");
     }
 }
