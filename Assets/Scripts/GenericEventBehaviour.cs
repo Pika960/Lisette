@@ -1,22 +1,30 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GenericEventBehaviour : MonoBehaviour
 {
     // private internal values
-    private bool   isAlreadyTriggered;
-    private string objectName;
-    private string sceneName;
-    private ushort currentEventType;
+    private bool       isAlreadyTriggered;
+    private string     objectName;
+    private string     sceneName;
+    private ushort     currentEventType;
+    private GameObject canvas;
+    private GameObject dialogWindow;
 
     // public values
+    public int       itemAmount;
+    public string    itemName;
     public TextAsset dialogResource;
+    public TextAsset notificationResource;
 
     // Start is called before the first frame update
     void Start()
     {
-        objectName = gameObject.name;
-        sceneName  = SceneManager.GetActiveScene().name;
+        canvas       = GameObject.Find("/Canvas");
+        dialogWindow = canvas.transform.Find("DialogWindow").gameObject;
+        objectName   = gameObject.name;
+        sceneName    = SceneManager.GetActiveScene().name;
 
         if (objectName.Contains("DialogEvent"))
         {
@@ -47,7 +55,10 @@ public class GenericEventBehaviour : MonoBehaviour
                     // logic specific for a dialog event
                     Debug.Log("OnTriggerEnter: Dialog");
 
-                    FindObjectOfType<DialogManager>().StartDialog(dialogResource);
+                    if (dialogResource.text.Length != 0)
+                    {
+                        FindObjectOfType<DialogManager>().StartDialog(dialogResource);
+                    }
                 }
 
                 else if (currentEventType == 1)
@@ -55,8 +66,10 @@ public class GenericEventBehaviour : MonoBehaviour
                     // logic specific for an encounter event
                     Debug.Log("OnTriggerEnter: Encounter");
 
-                    string placeholderMessage = "Oh no, a wild monster appears.";
-                    FindObjectOfType<NotificationManager>().StartNotification(placeholderMessage);
+                    if (notificationResource.text.Length != 0)
+                    {
+                        FindObjectOfType<NotificationManager>().StartNotification(notificationResource.text);
+                    }
                 }
 
                 else if (currentEventType == 2)
@@ -64,9 +77,17 @@ public class GenericEventBehaviour : MonoBehaviour
                     // logic specific for an item event
                     Debug.Log("OnTriggerEnter: Item");
 
-                    GameState.ManageInventory("Apple", 1);
-                    string placeholderMessage = "Yummy, I found an apple.";
-                    FindObjectOfType<NotificationManager>().StartNotification(placeholderMessage);
+                    if (itemName.Length != 0 && itemAmount != 0 && 
+                        dialogResource.text.Length != 0 && notificationResource.text.Length != 0)
+                    {
+                        GameState.ManageInventory(itemName, itemAmount);
+                        StartCoroutine(SpawnMultipleDialogs());
+                    }
+
+                    else
+                    {
+                        GameState.ManageInventory("8F", 1);
+                    }
                 }
             }
 
@@ -107,5 +128,17 @@ public class GenericEventBehaviour : MonoBehaviour
                 }
             }
         }
+    }
+
+    IEnumerator SpawnMultipleDialogs()
+    {
+        FindObjectOfType<DialogManager>().StartDialog(dialogResource);
+
+        yield return new WaitUntil(() => dialogWindow.activeSelf == false);
+
+        string notificationMessage;
+        notificationMessage  = notificationResource.text;
+        notificationMessage += ("\n\n\t- " + itemName + " (x" + itemAmount + ")");
+        FindObjectOfType<NotificationManager>().StartNotification(notificationMessage);
     }
 }
