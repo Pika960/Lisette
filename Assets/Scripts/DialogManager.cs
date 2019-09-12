@@ -74,6 +74,7 @@ public class DialogManager : MonoBehaviour
     {
         if (dialogSentences.Count == 0)
         {
+            eventSystem.SetSelectedGameObject(null);
             dialogWindow.gameObject.SetActive(false);
             player.gameObject.GetComponent<PlayerInputController>().enabled = true;
 

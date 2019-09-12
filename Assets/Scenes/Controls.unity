@@ -582,7 +582,7 @@ MonoBehaviour:
   m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 1991969806}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1450969945
@@ -1359,8 +1359,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "2 Up (LeftStick)\r\n3 Up (DPAD)\r\n\r\n1 Left/Right (RightStick)\r\n2 Left/Right
-    (LeftStick)\r\n3 Left/Right (DPAD)\r\n\r\n2 Down (LeftStick)\r\n3 Down (DPAD)\r\n\r\nA
+  m_Text: "2 Up (DPAD)\r\n3 Up (LeftStick)\r\n\r\n1 Left/Right (RightStick)\r\n2 Left/Right
+    (DPAD)\r\n3 Left/Right (LeftStick)\r\n\r\n2 Down (DPAD)\r\n3 Down (LeftStick)\r\n\r\nA
     Button\r\n\r\nY Button\r\n\r\n4 (Select Button)\r\n\r\n6 (Start Button)\n"
 --- !u!222 &2093590034
 CanvasRenderer:

@@ -37,6 +37,7 @@ public class NotificationManager : MonoBehaviour
 
     public void CloseNotificationWindow()
     {
+        eventSystem.SetSelectedGameObject(null);
         notificationWindow.gameObject.SetActive(false);
         player.gameObject.GetComponent<PlayerInputController>().enabled = true;
     }
