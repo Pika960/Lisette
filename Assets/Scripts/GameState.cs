@@ -3,17 +3,65 @@ using UnityEngine;
 
 public static class GameState
 {
+    private static Dictionary<ushort, Attack>                   m_attackList;
+    private static Dictionary<ushort, Attack>                   m_playerAttackList;
     private static Dictionary<string, int>                      m_playerInventory;
     private static Dictionary<string, Vector3>                  m_playerPositions;
     private static Dictionary<string, Quaternion>               m_playerRotations;
     private static Dictionary<string, Dictionary<string, bool>> m_triggeredEvents;
 
+    public enum ElementType
+    {
+        Fire,
+        Ice,
+        Lightning,
+        Earth,
+        Wind,
+        Water,
+        Holy,
+        Dark,
+        Poison,
+    };
+
     static GameState()
     {
-        m_playerInventory = new Dictionary<string, int>();
-        m_playerPositions = new Dictionary<string, Vector3>();
-        m_playerRotations = new Dictionary<string, Quaternion>();
-        m_triggeredEvents = new Dictionary<string, Dictionary<string, bool>>();
+        InitAttackList();
+
+        m_playerAttackList = new Dictionary<ushort, Attack>();
+        m_playerInventory  = new Dictionary<string, int>();
+        m_playerPositions  = new Dictionary<string, Vector3>();
+        m_playerRotations  = new Dictionary<string, Quaternion>();
+        m_triggeredEvents  = new Dictionary<string, Dictionary<string, bool>>();
+
+        m_playerAttackList.Add(001, m_attackList[002]);
+        m_playerAttackList.Add(002, m_attackList[003]);
+        m_playerAttackList.Add(003, m_attackList[005]);
+        m_playerAttackList.Add(004, m_attackList[008]);
+    }
+
+    private static void InitAttackList()
+    {
+        m_attackList = new Dictionary<ushort, Attack>();
+
+        m_attackList.Add(001, new Attack("Antigravity",   ElementType.Dark,      140));
+        m_attackList.Add(002, new Attack("Aqua",          ElementType.Water,      80));
+        m_attackList.Add(003, new Attack("Blizzard",      ElementType.Ice,       120));
+        m_attackList.Add(004, new Attack("Fire",          ElementType.Fire,       80));
+        m_attackList.Add(005, new Attack("Nimbus",        ElementType.Holy,      140));
+        m_attackList.Add(006, new Attack("Poison Breath", ElementType.Poison,     80));
+        m_attackList.Add(007, new Attack("Quake",         ElementType.Earth,      80));
+        m_attackList.Add(008, new Attack("Thunder",       ElementType.Lightning, 120));
+        m_attackList.Add(009, new Attack("Tornado",       ElementType.Wind,      100));
+    }
+
+    public static Dictionary<ushort, Attack> GetAttackListAll()
+    {
+        return m_attackList;
+    }
+
+    public static Dictionary<ushort, Attack> GetAttackListPlayer()
+    {
+        return m_playerAttackList;
     }
 
     public static Dictionary<string, int> GetInventory()

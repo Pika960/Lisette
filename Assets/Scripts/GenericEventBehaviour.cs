@@ -11,6 +11,7 @@ public class GenericEventBehaviour : MonoBehaviour
     private ushort     currentEventType;
     private GameObject canvas;
     private GameObject dialogWindow;
+    private GameObject notificationWindow;
 
     // public values
     public int       itemAmount;
@@ -21,10 +22,11 @@ public class GenericEventBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        canvas       = GameObject.Find("/Canvas");
-        dialogWindow = canvas.transform.Find("DialogWindow").gameObject;
-        objectName   = gameObject.name;
-        sceneName    = SceneManager.GetActiveScene().name;
+        canvas             = GameObject.Find("/Canvas");
+        dialogWindow       = canvas.transform.Find("DialogWindow").gameObject;
+        notificationWindow = canvas.transform.Find("NotificationWindow").gameObject;
+        objectName         = gameObject.name;
+        sceneName          = SceneManager.GetActiveScene().name;
 
         if (objectName.Contains("DialogEvent"))
         {
@@ -69,6 +71,7 @@ public class GenericEventBehaviour : MonoBehaviour
                     if (notificationResource.text.Length != 0)
                     {
                         FindObjectOfType<NotificationManager>().StartNotification(notificationResource.text);
+                        StartCoroutine(LoadBattleScreen());
                     }
                 }
 
@@ -140,5 +143,11 @@ public class GenericEventBehaviour : MonoBehaviour
         notificationMessage  = notificationResource.text;
         notificationMessage += ("\n\n\t- " + itemName + " (x" + itemAmount + ")");
         FindObjectOfType<NotificationManager>().StartNotification(notificationMessage);
+    }
+
+    IEnumerator LoadBattleScreen()
+    {
+        yield return new WaitUntil(() => notificationWindow.activeSelf == false);
+        SceneManager.LoadScene("BattleScreen");
     }
 }
