@@ -8829,7 +8829,7 @@ PrefabInstance:
     - target: {fileID: 464691032424700651, guid: 4db7fcc8bb5388a49b8f46fa2d8021db,
         type: 3}
       propertyPath: itemName
-      value: Yggdrasil Branch
+      value: Crystal
       objectReference: {fileID: 0}
     - target: {fileID: 464691032424700651, guid: 4db7fcc8bb5388a49b8f46fa2d8021db,
         type: 3}

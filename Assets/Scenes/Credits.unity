@@ -354,10 +354,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Lisette's Mysterious Dream\r\n\r\nA Game by Team Zetta\r\n\r\n\r\nLead
-    Project Manager\r\n\r\nAdditional Project Managers\r\n\r\n\r\nLead Game Designer\r\n\r\nAdditional
+  m_Text: "Lisette's Mysterious Dream\r\n\r\nA Game by Team Zeta\r\n\r\n\r\nLead Project
+    Manager\r\n\r\nAdditional Project Managers\r\n\r\n\r\nLead Game Designer\r\n\r\nAdditional
     Game Designers\r\n\r\n\r\nGameplay Programmers\r\n\r\n\r\nUI Programmers\r\n\r\n\r\nGraphic
-    Artists\r\n\r\nSound Selection\r\n\r\nQuality Assurance\n\n"
+    Artists\r\n\r\nLevel Design\r\n\r\nQuality Assurance\n\n"
 --- !u!222 &919467992
 CanvasRenderer:
   m_ObjectHideFlags: 0
