@@ -52,6 +52,11 @@ public class DialogManager : MonoBehaviour
 
             foreach(string line in dialogLines)
             {
+                if (line.Length == 0)
+                {
+                    continue;
+                }
+
                 string[] split = line.Split('|');
                 dialogNames.Enqueue(split[0]);
                 dialogSentences.Enqueue(split[1]);

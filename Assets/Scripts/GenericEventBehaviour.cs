@@ -184,7 +184,7 @@ public class GenericEventBehaviour : MonoBehaviour
 
         string notificationMessage;
         notificationMessage = notificationResource.text;
-        notificationMessage += ("\n\n\t- " + itemName + " (x" + itemAmount + ")");
+        notificationMessage += ("\n\t- " + itemName + " (x" + itemAmount + ")");
         FindObjectOfType<NotificationManager>().StartNotification(notificationMessage);
     }
 }
