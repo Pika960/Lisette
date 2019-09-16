@@ -138,34 +138,22 @@ public class BattleScreenManager : MonoBehaviour
 
     public void Attack01()
     {
-        GameState.GetCurrentEnemy().DecreaseHealth(GameState.GetAttackListPlayer()[001].GetAttackDamage());
-        GameState.DecreasePlayerHealth(GameState.GetCurrentEnemy().GetMoveset()[001].GetAttackDamage());
-        UpdateHealthBars();
-        CheckWinConditions();
+        Battle(001);
     }
 
     public void Attack02()
     {
-        GameState.GetCurrentEnemy().DecreaseHealth(GameState.GetAttackListPlayer()[002].GetAttackDamage());
-        GameState.DecreasePlayerHealth(GameState.GetCurrentEnemy().GetMoveset()[002].GetAttackDamage());
-        UpdateHealthBars();
-        CheckWinConditions();
+        Battle(002);
     }
 
     public void Attack03()
     {
-        GameState.GetCurrentEnemy().DecreaseHealth(GameState.GetAttackListPlayer()[002].GetAttackDamage());
-        GameState.DecreasePlayerHealth(GameState.GetCurrentEnemy().GetMoveset()[002].GetAttackDamage());
-        UpdateHealthBars();
-        CheckWinConditions();
+        Battle(003);
     }
 
     public void Attack04()
     {
-        GameState.GetCurrentEnemy().DecreaseHealth(GameState.GetAttackListPlayer()[002].GetAttackDamage());
-        GameState.DecreasePlayerHealth(GameState.GetCurrentEnemy().GetMoveset()[002].GetAttackDamage());
-        UpdateHealthBars();
-        CheckWinConditions();
+        Battle(004);
     }
 
     public void BackToActions()
@@ -176,7 +164,26 @@ public class BattleScreenManager : MonoBehaviour
         nextAction.text = "What will you do next?";
     }
 
-    private void CheckWinConditions()
+    private void Battle(ushort index)
+    {
+        GameState.GetCurrentEnemy().DecreaseHealth(GameState.GetAttackListPlayer()[index].GetAttackDamage());
+        UpdateHealthBars();
+
+        if(CheckWinConditions())
+        {
+            return;
+        }
+
+        GameState.DecreasePlayerHealth(GameState.GetCurrentEnemy().GetMoveset()[002].GetAttackDamage());
+        UpdateHealthBars();
+
+        if (CheckWinConditions())
+        {
+            return;
+        }
+    }
+
+    private bool CheckWinConditions()
     {
         ushort enemyCurrentHealth  = GameState.GetCurrentEnemy().GetCurrentHealth();
         ushort playerCurrentHealth = GameState.GetPlayerCurrentHealth();
@@ -191,6 +198,7 @@ public class BattleScreenManager : MonoBehaviour
             nextAction.text = "You won";
 
             StartCoroutine(WaitForSeconds());
+            return true;
         }
 
         if (playerCurrentHealth == 0)
@@ -203,7 +211,10 @@ public class BattleScreenManager : MonoBehaviour
             nextAction.text = "You lost";
 
             StartCoroutine(WaitForSeconds());
+            return true;
         }
+
+        return false;
     }
 
     private void UpdateHealthBars()
@@ -244,6 +255,7 @@ public class BattleScreenManager : MonoBehaviour
 
     IEnumerator WaitForSeconds()
     {
+        GameState.RefreshPlayerHealth();
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene(GameState.GetLastActiveScene());
     }
