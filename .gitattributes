@@ -1,0 +1,36 @@
+# default behavior
+* text=auto
+
+# normalize to native line endings
+*.cs text
+*.txt text
+
+# always lf line endings
+*.anim eol=lf
+*.asset eol=lf
+*.controller eol=lf
+*.mat eol=lf
+*.meta eol=lf
+*.physicsMaterial eol=lf
+*.physicsMaterial2D eol=lf
+*.prefab eol=lf
+*.unity eol=lf
+
+# always CRLF line endings
+*.sln text eol=crlf
+
+# truly binary files
+*.gif binary
+*.jpg binary
+*.png binary
+
+*.mp3 binary
+*.ogg binary
+*.wav binary
+
+*.mov binary
+*.mp4 binary
+
+*.blend binary
+*.fbx binary
+*.obj binary
