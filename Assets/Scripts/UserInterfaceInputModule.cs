@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 
+// forked from: https://bitbucket.org/Unity-Technologies/ui/src/2019.1/UnityEngine.UI/EventSystem/InputModules/StandaloneInputModule.cs
 public class UserInterfaceInputModule : PointerInputModule
 {
     private float m_PrevActionTime;
