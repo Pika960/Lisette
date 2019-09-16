@@ -5,23 +5,28 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-
 public class BattleScreenManager : MonoBehaviour
 {
     private EventSystem eventSystem;
     private GameObject  canvas;
-    private GameObject  battleWindow;
     private GameObject  actionsWindow;
     private GameObject  attackWindow;
+    private GameObject  battleWindow;
     private GameObject  buttonAttack01;
     private GameObject  buttonAttack02;
     private GameObject  buttonAttack03;
     private GameObject  buttonAttack04;
-    private Text        nextAction;
+    private GameObject  enemy;
+    private GameObject  player;
     private Text        attack01;
     private Text        attack02;
     private Text        attack03;
     private Text        attack04;
+    private Text        enemyHealth;
+    private Text        enemyName;
+    private Text        playerHealth;
+    private Text        playerName;
+    private Text        nextAction;
 
     // Start is called before the first frame update
     void Start()
@@ -29,12 +34,18 @@ public class BattleScreenManager : MonoBehaviour
         eventSystem    = EventSystem.current;
         canvas         = GameObject.Find("/Canvas");
         battleWindow   = canvas.transform.Find("BattleWindow").gameObject;
+        enemy          = canvas.transform.Find("Enemy").gameObject;
+        player         = canvas.transform.Find("Player").gameObject;
         actionsWindow  = battleWindow.transform.Find("ActionsWindow").gameObject;
         attackWindow   = battleWindow.transform.Find("AttackWindow").gameObject;
         buttonAttack01 = attackWindow.transform.Find("Attack01").gameObject;
         buttonAttack02 = attackWindow.transform.Find("Attack02").gameObject;
         buttonAttack03 = attackWindow.transform.Find("Attack03").gameObject;
         buttonAttack04 = attackWindow.transform.Find("Attack04").gameObject;
+        enemyHealth    = enemy.transform.Find("Health").gameObject.GetComponent<Text>();
+        enemyName      = enemy.transform.Find("Name").gameObject.GetComponent<Text>();
+        playerHealth   = player.transform.Find("Health").gameObject.GetComponent<Text>();
+        playerName     = player.transform.Find("Name").gameObject.GetComponent<Text>();
         nextAction     = battleWindow.transform.Find("NextAction").gameObject.GetComponent<Text>();
         attack01       = buttonAttack01.transform.Find("Text").GetComponent<Text>();
         attack02       = buttonAttack02.transform.Find("Text").GetComponent<Text>();
@@ -46,6 +57,10 @@ public class BattleScreenManager : MonoBehaviour
         attack02.text   = GameState.GetAttackListPlayer()[002].GetAttackName();
         attack03.text   = GameState.GetAttackListPlayer()[003].GetAttackName();
         attack04.text   = GameState.GetAttackListPlayer()[004].GetAttackName();
+        enemyName.text  = GameState.GetCurrentEnemy().GetName();
+        playerName.text = GameState.GetPlayerName();
+
+        UpdateHealthBars();
     }
 
     // Update is called once per frame
@@ -123,22 +138,34 @@ public class BattleScreenManager : MonoBehaviour
 
     public void Attack01()
     {
-        // not implemented yet
+        GameState.GetCurrentEnemy().DecreaseHealth(GameState.GetAttackListPlayer()[001].GetAttackDamage());
+        GameState.DecreasePlayerHealth(GameState.GetCurrentEnemy().GetMoveset()[001].GetAttackDamage());
+        UpdateHealthBars();
+        CheckWinConditions();
     }
 
     public void Attack02()
     {
-        // not implemented yet
+        GameState.GetCurrentEnemy().DecreaseHealth(GameState.GetAttackListPlayer()[002].GetAttackDamage());
+        GameState.DecreasePlayerHealth(GameState.GetCurrentEnemy().GetMoveset()[002].GetAttackDamage());
+        UpdateHealthBars();
+        CheckWinConditions();
     }
 
     public void Attack03()
     {
-        // not implemented yet
+        GameState.GetCurrentEnemy().DecreaseHealth(GameState.GetAttackListPlayer()[002].GetAttackDamage());
+        GameState.DecreasePlayerHealth(GameState.GetCurrentEnemy().GetMoveset()[002].GetAttackDamage());
+        UpdateHealthBars();
+        CheckWinConditions();
     }
 
     public void Attack04()
     {
-        // not implemented yet
+        GameState.GetCurrentEnemy().DecreaseHealth(GameState.GetAttackListPlayer()[002].GetAttackDamage());
+        GameState.DecreasePlayerHealth(GameState.GetCurrentEnemy().GetMoveset()[002].GetAttackDamage());
+        UpdateHealthBars();
+        CheckWinConditions();
     }
 
     public void BackToActions()
@@ -153,5 +180,71 @@ public class BattleScreenManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         SceneManager.LoadScene("SampleScene");
+    }
+
+    private void CheckWinConditions()
+    {
+        ushort enemyCurrentHealth  = GameState.GetCurrentEnemy().GetCurrentHealth();
+        ushort playerCurrentHealth = GameState.GetPlayerCurrentHealth();
+
+        if (enemyCurrentHealth == 0)
+        {
+            attackWindow.transform.Find("Attack01").gameObject.SetActive(false);
+            attackWindow.transform.Find("Attack02").gameObject.SetActive(false);
+            attackWindow.transform.Find("Attack03").gameObject.SetActive(false);
+            attackWindow.transform.Find("Attack04").gameObject.SetActive(false);
+            attackWindow.transform.Find("BackToActions").gameObject.SetActive(false);
+            nextAction.text = "You won";
+
+            StartCoroutine(WaitForSeconds());
+        }
+
+        if (playerCurrentHealth == 0)
+        {
+            attackWindow.transform.Find("Attack01").gameObject.SetActive(false);
+            attackWindow.transform.Find("Attack02").gameObject.SetActive(false);
+            attackWindow.transform.Find("Attack03").gameObject.SetActive(false);
+            attackWindow.transform.Find("Attack04").gameObject.SetActive(false);
+            attackWindow.transform.Find("BackToActions").gameObject.SetActive(false);
+            nextAction.text = "You lost";
+
+            StartCoroutine(WaitForSeconds());
+        }
+    }
+
+    private void UpdateHealthBars()
+    {
+        ushort enemyCurrentHealth  = GameState.GetCurrentEnemy().GetCurrentHealth();
+        ushort playerCurrentHealth = GameState.GetPlayerCurrentHealth();
+
+        if (enemyCurrentHealth < 10)
+        {
+            enemyHealth.text = "  " + enemyCurrentHealth + "/" + GameState.GetCurrentEnemy().GetMaxHealth() + " HP";
+        }
+
+        else if (enemyCurrentHealth < 100)
+        {
+            enemyHealth.text = " " + enemyCurrentHealth + "/" + GameState.GetCurrentEnemy().GetMaxHealth() + " HP";
+        }
+
+        else
+        {
+            enemyHealth.text = enemyCurrentHealth + "/" + GameState.GetCurrentEnemy().GetMaxHealth() + " HP";
+        }
+
+        if (playerCurrentHealth < 10)
+        {
+            playerHealth.text = "  " + playerCurrentHealth + "/" + GameState.GetPlayerMaxHealth() + " HP";
+        }
+
+        else if(playerCurrentHealth < 100)
+        {
+            playerHealth.text = " " + playerCurrentHealth + "/" + GameState.GetPlayerMaxHealth() + " HP";
+        }
+
+        else
+        {
+            playerHealth.text = playerCurrentHealth + "/" + GameState.GetPlayerMaxHealth() + " HP";
+        }
     }
 }

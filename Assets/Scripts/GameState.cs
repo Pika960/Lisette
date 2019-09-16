@@ -3,6 +3,11 @@ using UnityEngine;
 
 public static class GameState
 {
+    private static string m_playerName;
+    private static ushort m_playerCurrentHealth;
+    private static ushort m_playerMaxHealth;
+    private static Enemy  m_currentEnemy;
+
     private static Dictionary<ushort, Attack>                   m_attackList;
     private static Dictionary<ushort, Attack>                   m_playerAttackList;
     private static Dictionary<string, int>                      m_playerInventory;
@@ -25,13 +30,14 @@ public static class GameState
 
     static GameState()
     {
-        InitAttackList();
+        m_currentEnemy        = null;
+        m_playerAttackList    = new Dictionary<ushort, Attack>();
+        m_playerName          = "Lisette";
+        m_playerCurrentHealth = 420;
+        m_playerMaxHealth     = 420;
 
-        m_playerAttackList = new Dictionary<ushort, Attack>();
-        m_playerInventory  = new Dictionary<string, int>();
-        m_playerPositions  = new Dictionary<string, Vector3>();
-        m_playerRotations  = new Dictionary<string, Quaternion>();
-        m_triggeredEvents  = new Dictionary<string, Dictionary<string, bool>>();
+        InitAttackList();
+        ResetGameState();
 
         m_playerAttackList.Add(001, m_attackList[002]);
         m_playerAttackList.Add(002, m_attackList[003]);
@@ -52,6 +58,49 @@ public static class GameState
         m_attackList.Add(007, new Attack("Quake",         ElementType.Earth,      80));
         m_attackList.Add(008, new Attack("Thunder",       ElementType.Lightning, 120));
         m_attackList.Add(009, new Attack("Tornado",       ElementType.Wind,      100));
+    }
+
+    public static string GetPlayerName()
+    {
+        return m_playerName;
+    }
+
+    public static ushort GetPlayerCurrentHealth()
+    {
+        return m_playerCurrentHealth;
+    }
+
+    public static void DecreasePlayerHealth(ushort damage)
+    {
+        if (m_playerCurrentHealth < damage)
+        {
+            m_playerCurrentHealth = 0;
+        }
+
+        else
+        {
+            m_playerCurrentHealth -= damage;
+        }
+    }
+
+    public static void RefreshPlayerHealth()
+    {
+        m_playerCurrentHealth = m_playerMaxHealth;
+    }
+
+    public static ushort GetPlayerMaxHealth()
+    {
+        return m_playerMaxHealth;
+    }
+
+    public static Enemy GetCurrentEnemy()
+    {
+        return m_currentEnemy;
+    }
+
+    public static void SetCurrentEnemy(Enemy enemy)
+    {
+        m_currentEnemy = enemy;
     }
 
     public static Dictionary<ushort, Attack> GetAttackListAll()
@@ -179,5 +228,13 @@ public static class GameState
                 return false;
             }
         }
+    }
+
+    public static void ResetGameState()
+    {
+        m_playerInventory = new Dictionary<string, int>();
+        m_playerPositions = new Dictionary<string, Vector3>();
+        m_playerRotations = new Dictionary<string, Quaternion>();
+        m_triggeredEvents = new Dictionary<string, Dictionary<string, bool>>();
     }
 }

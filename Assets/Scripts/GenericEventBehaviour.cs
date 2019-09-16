@@ -148,6 +148,8 @@ public class GenericEventBehaviour : MonoBehaviour
     IEnumerator LoadBattleScreen()
     {
         yield return new WaitUntil(() => notificationWindow.activeSelf == false);
+
+        GameState.SetCurrentEnemy(new Enemy("Fenrir", GameState.ElementType.Dark, 210));
         SceneManager.LoadScene("BattleScreen");
     }
 }
