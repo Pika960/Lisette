@@ -3,6 +3,7 @@ using UnityEngine;
 
 public static class GameState
 {
+    private static string m_lastActiveScene;
     private static string m_playerName;
     private static ushort m_playerCurrentHealth;
     private static ushort m_playerMaxHealth;
@@ -31,6 +32,7 @@ public static class GameState
     static GameState()
     {
         m_currentEnemy        = null;
+        m_lastActiveScene     = null;
         m_playerAttackList    = new Dictionary<ushort, Attack>();
         m_playerName          = "Lisette";
         m_playerCurrentHealth = 420;
@@ -58,6 +60,16 @@ public static class GameState
         m_attackList.Add(007, new Attack("Quake",         ElementType.Earth,      80));
         m_attackList.Add(008, new Attack("Thunder",       ElementType.Lightning, 120));
         m_attackList.Add(009, new Attack("Tornado",       ElementType.Wind,      100));
+    }
+
+    public static string GetLastActiveScene()
+    {
+        return m_lastActiveScene;
+    }
+
+    public static void SetLastActiveScene(string sceneName)
+    {
+        m_lastActiveScene = sceneName;
     }
 
     public static string GetPlayerName()

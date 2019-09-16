@@ -176,12 +176,6 @@ public class BattleScreenManager : MonoBehaviour
         nextAction.text = "What will you do next?";
     }
 
-    IEnumerator WaitForSeconds()
-    {
-        yield return new WaitForSeconds(2);
-        SceneManager.LoadScene("SampleScene");
-    }
-
     private void CheckWinConditions()
     {
         ushort enemyCurrentHealth  = GameState.GetCurrentEnemy().GetCurrentHealth();
@@ -246,5 +240,11 @@ public class BattleScreenManager : MonoBehaviour
         {
             playerHealth.text = playerCurrentHealth + "/" + GameState.GetPlayerMaxHealth() + " HP";
         }
+    }
+
+    IEnumerator WaitForSeconds()
+    {
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(GameState.GetLastActiveScene());
     }
 }

@@ -70,6 +70,7 @@ public class GenericEventBehaviour : MonoBehaviour
 
                     if (notificationResource.text.Length != 0)
                     {
+                        GameState.SetLastActiveScene(sceneName);
                         FindObjectOfType<NotificationManager>().StartNotification(notificationResource.text);
                         StartCoroutine(LoadBattleScreen());
                     }
