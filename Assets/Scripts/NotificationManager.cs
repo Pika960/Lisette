@@ -26,13 +26,7 @@ public class NotificationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (notificationWindow.activeSelf == true)
-        {
-            if (Input.GetButtonDown("Submit") || Input.GetButtonDown("FaceButton A"))
-            {
-                CloseNotificationWindow();
-            }
-        }
+        // nothing to do here
     }
 
     public void CloseNotificationWindow()

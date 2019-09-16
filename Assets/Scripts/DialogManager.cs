@@ -36,13 +36,7 @@ public class DialogManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (dialogWindow.activeSelf == true)
-        {
-            if (Input.GetButtonDown("Submit") || Input.GetButtonDown("FaceButton A"))
-            {
-                DisplayNextSentence();
-            }
-        }
+        // nothing to do here
     }
 
     public void StartDialog(TextAsset dialogResource)
