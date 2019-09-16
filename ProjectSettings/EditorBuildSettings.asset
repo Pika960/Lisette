@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BattleScreen.unity
     guid: 110d5913b3e2e8f4a861df4276e4e75d
+  - enabled: 1
+    path: Assets/Scenes/DemoStage.unity
+    guid: 634aeb644ee03e24c8db96206502ea57
   m_configObjects: {}
