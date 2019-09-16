@@ -42,6 +42,11 @@ public class GenericEventBehaviour : MonoBehaviour
         {
             currentEventType = 2;
         }
+
+        else if (objectName.Contains("DemoEndEvent"))
+        {
+            currentEventType = 3;
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -93,6 +98,18 @@ public class GenericEventBehaviour : MonoBehaviour
                         GameState.ManageInventory("8F", 1);
                     }
                 }
+
+                else if (currentEventType == 3)
+                {
+                    // logic specific for an demo end event
+                    Debug.Log("OnTriggerEnter: DemoEnd");
+
+                    if (dialogResource.text.Length != 0)
+                    {
+                        FindObjectOfType<DialogManager>().StartDialog(dialogResource);
+                        StartCoroutine(DemoEnd());
+                    }
+                }
             }
 
             else
@@ -130,8 +147,33 @@ public class GenericEventBehaviour : MonoBehaviour
                     // logic specific for an item event
                     Debug.Log("OnTriggerExit: Item");
                 }
+
+                else if (currentEventType == 3)
+                {
+                    // logic specific for an item event
+                    Debug.Log("OnTriggerExit: DemoEnd");
+                }
             }
         }
+    }
+
+    IEnumerator DemoEnd()
+    {
+        yield return new WaitUntil(() => dialogWindow.activeSelf == false);
+
+        FindObjectOfType<NotificationManager>().StartNotification("Thank you for playing this demo");
+
+        yield return new WaitUntil(() => notificationWindow.activeSelf == false);
+
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    IEnumerator LoadBattleScreen()
+    {
+        yield return new WaitUntil(() => notificationWindow.activeSelf == false);
+
+        GameState.SetCurrentEnemy(new Enemy("Fenrir", GameState.ElementType.Dark, 210));
+        SceneManager.LoadScene("BattleScreen");
     }
 
     IEnumerator SpawnMultipleDialogs()
@@ -141,16 +183,8 @@ public class GenericEventBehaviour : MonoBehaviour
         yield return new WaitUntil(() => dialogWindow.activeSelf == false);
 
         string notificationMessage;
-        notificationMessage  = notificationResource.text;
+        notificationMessage = notificationResource.text;
         notificationMessage += ("\n\n\t- " + itemName + " (x" + itemAmount + ")");
         FindObjectOfType<NotificationManager>().StartNotification(notificationMessage);
-    }
-
-    IEnumerator LoadBattleScreen()
-    {
-        yield return new WaitUntil(() => notificationWindow.activeSelf == false);
-
-        GameState.SetCurrentEnemy(new Enemy("Fenrir", GameState.ElementType.Dark, 210));
-        SceneManager.LoadScene("BattleScreen");
     }
 }

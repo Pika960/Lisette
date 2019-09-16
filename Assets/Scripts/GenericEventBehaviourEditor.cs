@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
@@ -33,6 +34,12 @@ public class GenericEventBehaviourEditor : Editor
                 script.notificationResource, typeof(TextAsset), true);
         }
 
+        else if (script.gameObject.name.Contains("DemoEndEvent"))
+        {
+            script.dialogResource = (TextAsset)EditorGUILayout.ObjectField("Dialog Asset", 
+                script.dialogResource, typeof(TextAsset), true);
+        }
+
         if (GUI.changed)
         {
             EditorUtility.SetDirty(script);
@@ -40,3 +47,4 @@ public class GenericEventBehaviourEditor : Editor
         }
     }
 }
+#endif
