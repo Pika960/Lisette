@@ -46,7 +46,8 @@ public class MainMenuManager : MonoBehaviour
     public void StartNewGame()
     {
         // load the demo stage
-        SceneManager.LoadScene("SampleScene");
+        GameState.ResetGameState();
+        SceneManager.LoadScene("DemoStage");
     }
 
     public void ContinueGame()
