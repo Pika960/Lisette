@@ -1,0 +1,18 @@
+Pachipachi|Hey Old Father Oak. It's me Pachipachi.
+Old Father Oak|It's been a long time since you last visited me.
+Old Father Oak|And every time you visit me you want something from me.
+Old Father Oak|What is it this time?
+Pachipachi|This is Lisette.
+Pachipachi|She has no idea how she got here.
+Old Father Oak|Let me think a moment.
+Old Father Oak|...
+Old Father Oak|Is she maybe?
+Pachipachi|You mean the pure hearted one, right?
+Old Father Oak|If so, then she is here to prevent the downfall of this world.
+Old Father Oak|To investigate the whole further you should leave this forest and go east.
+Old Father Oak|Go to the king of Mirai.
+Old Father Oak|If she is really the pure hearted one then he knows what is to do.
+Pachipachi|Lisette, we should do what Old Father Oak said.
+Lisette|I'm more confused the before.
+Lisette|But you're probably right.
+Lisette|Okay, let's go.

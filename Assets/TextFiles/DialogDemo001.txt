@@ -1,0 +1,18 @@
+Pachipachi|Pachi, pachi?
+Lisette|Are you trying to tell me something?
+Pachipachi|Pachi?
+Lisette|What a strange squirrel.
+Pachipachi|Sorry. You are not from here, are you?
+Lisette|No, I have no idea where I am.
+Pachipachi|I'm sorry, where are my manners?
+Pachipachi|Pachipachi is my name. Nice to meet you.
+Pachipachi|And this place here is called "Woods of Mystery".
+Lisette|I'm Lisette.
+Lisette|I've never met a talking squirrel.
+Lisette|And "Woods of Mystery" doesn't tell me anything.
+Pachipachi|Well then it's good that you have met me.
+Pachipachi|I might know someone who can help you.
+Lisette|Really?
+Pachipachi|Old Father Oak knows a lot of things.
+Pachipachi|We should visit him. He lives deep in the forest.
+Lisette|Okay, let's go.
