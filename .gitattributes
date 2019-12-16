@@ -9,6 +9,7 @@
 *.anim eol=lf
 *.asset eol=lf
 *.controller eol=lf
+*.json eol=lf
 *.mat eol=lf
 *.meta eol=lf
 *.physicsMaterial eol=lf
