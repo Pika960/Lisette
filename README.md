@@ -11,7 +11,7 @@ local machine for development and testing purposes.
 
 * Git
 * a text editor of your choice
-* Unity3D 2019.2
+* Unity3D 2019.3
 
 ### How to start the project
 
